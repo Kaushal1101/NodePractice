@@ -3,6 +3,9 @@
 
 const express = require('express')
 
+// Just adds colors to db visuals
+const colors = require('colors')
+
 // Loads environment variables from dotenv and configures them at the same time
 // so we can start using them now
 const dotenv = require('dotenv').config()
@@ -10,8 +13,17 @@ const dotenv = require('dotenv').config()
 // Load error handler file from middleware
 const {errorHandler} = require("./middleware/errorMiddleWare")
 
+// Import db handler
+// NOTE : {connectDB} when module.exports has {} arguments
+// If module.exports = connectDB, then just const connectDB will do
+const { connectDB } = require('./config/db')
+const { connect } = require('./routes/movieRoutes')
+
 // Sets up port as 5000 (from .env) or 8000 if not available
 const port = process.env.PORT || 8000
+
+// Connects to MongoDB database
+connectDB()
 
 // Instantiates express (not a class technically, but a function)
 // Basically an instance of the express app, which is an object that 

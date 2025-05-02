@@ -22,3 +22,5 @@ Create a new folder, routes under backend, and a file movieRoutes.js under it. T
 Create a new folder, controller, with movieController.js under it. This defines all the CRUD functions for requests.
 
 Create a new folder, middleware, with errorMiddleware.js under it. This defines an error handler to catch errors.
+
+Next install async handler using npm install express-async-handler to handle errors asynchronously
