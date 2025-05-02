@@ -14,6 +14,11 @@ const getMovies = (req, res) => {
 // @route   POST /api/movies
 // @access  Private
 const setMovies = (req, res) => {
+    // If no request body, or text in body, throw error
+    if (!req.body || !req.body.text) {
+        res.status(400)
+        throw new Error('Please add a movie')
+    }
     res.status(200).json({ message: `Set movies`})
 }
 

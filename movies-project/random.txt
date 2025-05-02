@@ -18,3 +18,7 @@ the long commands using the shortcuts npm run start and npm run server.
 Create a .env file in backend to store sensitive data, that can be accessed by other js files
 
 Create a new folder, routes under backend, and a file movieRoutes.js under it. This stores all routes for server
+
+Create a new folder, controller, with movieController.js under it. This defines all the CRUD functions for requests.
+
+Create a new folder, middleware, with errorMiddleware.js under it. This defines an error handler to catch errors.
