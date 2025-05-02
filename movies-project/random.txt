@@ -1,0 +1,20 @@
+These are the step by step instructions for the setup and design of the movies project.
+
+First, create a backend folder and inside it, create a server.js file.
+
+Next, in the movies-project dir, run npm init. Set entry point to server.js (not sure if it really matters,
+ can change it later anyways)
+
+Then, add a .gitignore file in the dir, and fill it in with 
+
+Next run npm install express mongoose colours dotenv (for now, this dependencies are enough)
+
+Then run npm install -D nodemon (node monitor continously runs program so changes are reflected without restarting server)
+
+In the package.json file, remove the line " "test": "echo \"Error: no test specified\" && exit 1" ".
+They are replaced with two lines for start and server terminal commands. These modifications allow us to run 
+the long commands using the shortcuts npm run start and npm run server.
+
+Create a .env file in backend to store sensitive data, that can be accessed by other js files
+
+Create a new folder, routes under backend, and a file movieRoutes.js under it. This stores all routes for server
