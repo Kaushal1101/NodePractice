@@ -46,6 +46,9 @@ app.use(express.urlencoded({ extended: false }))
 // Basically anything starting with /api/movies is re-routed to routes defined in routes/movieRoutes
 app.use('/api/movies', require('./routes/movieRoutes'))
 
+// Mounts router for users
+app.use('/api/users', require('./routes/userRoutes'))
+
 // Use errorhandler for the app
 app.use(errorHandler)
 

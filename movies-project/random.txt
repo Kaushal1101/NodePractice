@@ -24,3 +24,21 @@ Create a new folder, controller, with movieController.js under it. This defines 
 Create a new folder, middleware, with errorMiddleware.js under it. This defines an error handler to catch errors.
 
 Next install async handler using npm install express-async-handler to handle errors asynchronously
+
+Create a new folder, models, with movieModels.js
+
+Create a config folder in backend, with file db.js
+
+Add userModel.js to models, userController.js to controller, and userRoutes.js to routes
+
+Install npm install bcryptjs jsonwebtoken (for JWT)
+
+Create file authMiddleware under middleware
+
+Update .env with JWT secret
+
+** Use Postman to check all server requests and see how the database works (can be done on browser, but easier using Postman)
+
+
+
+

@@ -12,11 +12,13 @@ const asyncHandler = require('express-async-handler')
 // Gets the movie object with all methods to interact with mongooseDB
 const Movie = require('../models/movieModel')
 
+const User = require('../models/userModel')
+
 // @desc    Get goals
 // @route   GET /api/movies
 // @access  Private
 const getMovies = asyncHandler(async (req, res) => {
-    const movies = await Movie.find()
+    const movies = await Movie.find({user: req.user.id})
 
     res.status(200).json(movies)
 })
@@ -33,6 +35,7 @@ const setMovies = asyncHandler(async (req, res) => {
 
     const movie = await Movie.create({
         text: req.body.text,
+        user: req.user.id
     })
     res.status(200).json(movie)
 })
@@ -48,6 +51,18 @@ const updateMovies = asyncHandler(async (req, res) => {
         throw new Error('Movie not found')
     }
 
+    const user = await User.findById(req.user.id)
+
+    if (!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    if (movie.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
+
     const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     })
@@ -61,9 +76,21 @@ const updateMovies = asyncHandler(async (req, res) => {
 const deleteMovies = asyncHandler(async (req, res) => {
     const movie = await Movie.findById(req.params.id)
 
+    const user = await User.findById(req.user.id)
+
+    if (!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
     if (!movie) {
         res.status(400)
         throw new Error('Movie not found')
+    }
+
+    if (movie.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
     }
 
     await movie.deleteOne()
