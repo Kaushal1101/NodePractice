@@ -3,3 +3,4 @@
 # env contains sensitive DB info, which shouldn't be shared 
 node_modules
 .env
+.eslint.config.mjs

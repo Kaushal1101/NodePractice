@@ -39,6 +39,23 @@ Update .env with JWT secret
 
 ** Use Postman to check all server requests and see how the database works (can be done on browser, but easier using Postman)
 
+FRONTEND:
+
+Run npx create-react-app frontend --template redux (if not working, try create-react-app@latest)
+
+Go to package.json (in movies-project, not inside backend or frontend) and add a client line under scripts (see package.json)
+
+Run npm run client to see redux page on browser. If not working, cd into frontend and run "npm install @reduxjs/toolkit react-redux web-vitals" and try again
+
+Delete App.css and logo.svg as we don't need them
+
+Make respective changes to App.js, index.js, index.css
+
+Delete counters folder under features
+
+
+
+
 
 
 
