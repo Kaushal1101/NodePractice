@@ -53,7 +53,17 @@ Make respective changes to App.js, index.js, index.css
 
 Delete counters folder under features
 
+Create folder pages under src, and 3 pages Dashboard, Login, and Register
 
+Install the extension ES7+ React/Redux/React-Native snippets 
+
+Type rfce in each page to create template for that page (remove imported React as it's not useful)
+
+cd into frontend and install npm i react-router-dom
+
+Under src, create a folder componenets, with a file Header.jsx
+
+cd into frontend, and run npm i react-icons 
 
 
 
