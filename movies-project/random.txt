@@ -65,6 +65,24 @@ Under src, create a folder componenets, with a file Header.jsx
 
 cd into frontend, and run npm i react-icons 
 
+In movies-project, install npm i -D concurrently
+
+Create a new folder, auth, under features, with file authSlice.js
+
+Create file authService.js under features
+
+Update store.js
+
+cd into frontend, and install npm i axios react-toastify
+
+Edit package.json in frontend, to add proxy
+
+Optional: Add Spinner.jsx under components for spinning icon during loading times
+
+Make relevant changes to authSlice, authService, store, Login, and Register
+
+
+
 
 
 

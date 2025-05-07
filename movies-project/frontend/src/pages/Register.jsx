@@ -1,5 +1,18 @@
 import {useState, useEffect} from 'react'
+
+// Adds redux state management
+import {useSelector, useDispatch} from 'react-redux'
+
+// Navigate simply allows us to redirect to another page
+import {useNavigate} from 'react-router-dom'
+
+// Adds user feedback with popups
+import {toast} from 'react-toastify'
 import { FaUser } from 'react-icons/fa'
+
+// Import register and reset functionalities from authSlice
+import {register, reset} from '../features/auth/authSlice'
+import Spinner from '../components/Spinner'
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -10,6 +23,29 @@ function Register() {
   })
 
   const { name, email, password, cnfmpassword } = formData
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  // Pulling values from authSlice to check for error, success, or loading, and redirect the user/ show toast error conditionally
+  const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth)
+
+  // useEffect here to handle side effects like the 3 cases
+  useEffect(() => {
+      // Shows toast error if it's rejected
+    if (isError) {
+        toast.error(message)
+    }
+
+    // Redirect to dashboard if successful
+    if (isSuccess || user) {
+        navigate('/')
+    }
+
+    // Clears the redux state (resets it)
+    dispatch(reset())
+
+  }, [user, isError, isSuccess, message, navigate, dispatch])
+
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -18,10 +54,28 @@ function Register() {
     }))
   }
 
+  // Once submitted, validates password and registers user
   const onSubmit = (e) => {
     e.preventDefault()
+    
+    if (password != cnfmpassword) {
+        toast.error("Passwords do not match")
+    } else {
+        const userData = {
+            name, 
+            email, 
+            password
+        }
+         
+        dispatch(register(userData))
+    }
   }
   
+  // Generates spinning loading sign UI
+  if (isLoading) {
+    return <Spinner />
+  }
+
   return <>
     <section className='heading'>
         <h1>
