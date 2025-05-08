@@ -81,6 +81,15 @@ Optional: Add Spinner.jsx under components for spinning icon during loading time
 
 Make relevant changes to authSlice, authService, store, Login, and Register
 
+Edit dashboard page code so you can't access dahsboard page without logging in
+
+Create movies folder under features, with movieService.js and movieSlice.js
+
+Edit store.js to include the movieReducer now
+
+Add a movieForm.jsx file to components
+
+
 
 
 
