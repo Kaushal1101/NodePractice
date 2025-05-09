@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {useDispatch} from 'react-redux'
-import createMovie from '../features/movies/movieSlice'
+import {createMovie} from '../features/movies/movieSlice'
 
 function MovieForm() {
     const [text, setText] = useState('')
@@ -8,10 +8,9 @@ function MovieForm() {
     const dispatch = useDispatch()
     
     const onSubmit = (e) => {
-        console.log('C')
         e.preventDefault()
 
-        console.log('D')
+        console.log('createMovie: ', createMovie)
         dispatch(createMovie({ text }))
         console.log('E')
         setText('')

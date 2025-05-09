@@ -89,6 +89,9 @@ Edit store.js to include the movieReducer now
 
 Add a movieForm.jsx file to components
 
+Add a movieItem.jsx file to componenets
+
+Some edits were made to frontend and backed to resolve issues in movie rendering.
 
 
 
