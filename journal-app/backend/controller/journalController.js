@@ -11,32 +11,49 @@ const User = require('../models/userModel')
 const getJournals = asyncHandler( async (req, res) => {
     let journals
 
-    console.log("LOGGED IN USER: ", req.user)
-
-    journals = await Journal.find({ user: req.user._id })
-
-    console.log("JOURNALS FOUND: ", journals)
-
     if (req.user.role === 'premium') {
-        console.log('here')
-        // otherJournals = await Journal.find({ })
-        //                              .populate('user', 'name role')
-        //                              .filter(entry => entry.user.role === 'basic')
-
-        // journals = journals.concat(otherJournals)        
         const basicUsers = await User.find({ role: 'basic' }).select('_id')
         const basicUserIds = basicUsers.map(u => u._id)
 
-        const otherJournals = await Journal.find({
-            user: { $in: basicUserIds }
-        }).populate('user', 'name role')
-
-        journals = journals.concat(otherJournals)
+                journals = await Journal.find({
+            $or: [
+                { user: req.user._id },
+                { user: { $in: basicUserIds } }
+            ]
+        }).populate('user', 'name role');
+    } else {
+        journals = await Journal.find({ user: req.user._id }).populate('user', 'name role');
     } 
-
+    
     res.status(200).json(journals)
 })
 
+
+// @desc Get Entry By Id
+// @route GET /api/journals/:id
+// @access Private
+const getJournalById = asyncHandler( async (req, res) => {
+    const journal = await Journal.findById(req.params.id).populate('user', 'name role')
+
+    if (!journal) {
+        res.status(404)
+        throw new Error("Journal entry not found")
+    }
+
+    const isOwner = journal.user.id === req.user.id
+    const isPremiumEntry = journal.user.role === 'premium'
+    const isPremiumUser = req.user.role === 'premium'
+
+    const canView =
+        isOwner || (!isPremiumEntry && isPremiumUser)
+
+    if (!canView) {
+        res.status(403)
+        throw new Error("Not authorized to view this journal")
+    }
+
+    res.status(200).json(journal)
+})
 
 // @desc Enter Journals
 // @route POST /api/journals
@@ -200,5 +217,6 @@ module.exports = {
     writeJournal, 
     updateJournal, 
     deleteJournal,
-    mergeJournals
+    mergeJournals,
+    getJournalById
 }

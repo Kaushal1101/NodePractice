@@ -30,6 +30,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
         // Rule of thumb, use await when return value is a promise
         // Common promises are database queries, network calls, read files, and encryptio
+        //const userExists = await User.findOne({email}).populate('user', 'name role')
         const userExists = await User.findOne({email})
 
         if (userExists) {
@@ -46,6 +47,7 @@ const registerUser = asyncHandler(async (req, res) => {
             password: hashedPassword,
             role: role ? role : 'basic'
         })
+
 
         if (user) {
             res.status(201).json({
@@ -81,6 +83,7 @@ const loginUser = asyncHandler(async (req, res) => {
             _id: user.id,
             name: user.name,
             email: user.email,
+            role: user.role,
             token: generateToken(user._id)
         })
     } else {
@@ -107,6 +110,7 @@ const getMe = asyncHandler(async (req, res) => {
         id: _id, 
         name,
         email,
+        role,
         token
     })
 })
